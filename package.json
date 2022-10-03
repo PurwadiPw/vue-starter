@@ -1,0 +1,51 @@
+{
+  "name": "frontend",
+	"description": "Opinionated boilerplate project for an enterprise Vue frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build --modern",
+    "lint": "vue-cli-service lint",
+    "docker": "docker-compose exec dev yarn"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.27",
+    "@fortawesome/free-solid-svg-icons": "5.12.1",
+    "@fortawesome/vue-fontawesome": "0.1.9",
+    "axios": "0.19.2",
+    "core-js": "^3.6.5",
+    "date-fns": "2.10.0",
+    "lodash": "4.17.15",
+    "normalize.css": "8.0.1",
+    "nprogress": "0.2.0",
+    "sass": "^1.24.2",
+    "sass-loader": "^8.0.0",
+    "uninstall": "0.0.0",
+    "vue": "^2.6.11",
+    "vue-meta": "^2.4.0",
+    "vue-router": "^3.3.4",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0-rc.1",
+    "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
+    "@vue/cli-service": "~5.0.0-rc.1",
+    "autoprefixer": "^10.4.12",
+    "babel-eslint": "10.1.x",
+    "cross-env": "7.0.x",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "engines": {
+    "node": ">=10.13.3",
+    "yarn": ">=1.0.0"
+  }
+}
