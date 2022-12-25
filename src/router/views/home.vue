@@ -1,23 +1,13 @@
-<script>
-import appConfig from "@src/app.config";
-import Layout from "@layouts/main.vue";
-
-export default {
-  page: {
-    title: "Home",
-    meta: [{ name: "description", content: appConfig.description }],
-  },
-  components: { Layout },
-};
-</script>
-
 <template>
-  <Layout>
+  <div>
     <!-- Start Hero -->
     <section class="relative table w-full py-32 lg:py-36 bg-[url('~@assets/images/company/aboutus.jpg')] bg-center bg-no-repeat">
-      <div class="absolute inset-0 bg-black opacity-80"></div>
+      <div class="absolute inset-0 bg-black opacity-10"></div>
       <div class="container">
         <div class="grid grid-cols-1 pb-8 text-center place-items-center mt-10">
+          <button @click="onClick">
+            <base-feather-icon icon="Trash2Icon" class="text-white" />
+          </button>
           <h3 class="md:text-4xl text-3xl md:leading-normal leading-normal font-medium text-white">Home Page</h3>
           <img src="@assets/images/logo.png" alt="Logo" />
         </div>
@@ -34,5 +24,29 @@ export default {
       </div>
     </div>
     <!-- End Hero -->
-  </Layout>
+  </div>
 </template>
+
+<script>
+import { $appConfig } from '@src/app.config'
+import { authComputed, appComputed } from '@state/helpers'
+
+export default {
+  page: {
+    title: "Home",
+    meta: [{ name: "description", content: $appConfig.app.appDescription }],
+  },
+  computed: {
+    ...appComputed,
+    ...authComputed,
+  },
+  mounted() {
+    // console.log('menu', this.menu);
+  },
+  methods: {
+    onClick() {
+      this.$events.fire('showNotif', { msg: 'Hello World', variant: 'default' })
+    }
+  }
+};
+</script>

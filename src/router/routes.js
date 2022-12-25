@@ -1,83 +1,107 @@
 import store from '@state/store'
+import authLayout from '@router/layouts/auth.vue';
+import defaultLayout from '@router/layouts/side-nav-outer-toolbar.vue';
 
-export default [
+// lazy load
+const importPage = view => () => import(/* webpackChunkName: "p-[request]" */ `@views/${view}.vue`)
+
+const routeList = [
   {
     path: '/',
-    name: 'home',
-    component: () => lazyLoadView(import('@views/home.vue')),
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => lazyLoadView(import('@views/login.vue')),
-    meta: {
-      beforeResolve(routeTo, routeFrom, next) {
-        // If the user is already logged in
-        if (store.getters['auth/loggedIn']) {
-          // Redirect to the home page instead
-          next({ name: 'home' })
-        } else {
-          // Continue to the login page
-          next()
-        }
-      },
+    name: 'index',
+    components: {
+      layout: defaultLayout
     },
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: () => lazyLoadView(import('@views/profile.vue')),
     meta: {
       authRequired: true,
     },
-    props: (route) => ({ user: store.state.auth.currentUser || {} }),
+    redirect:{ name: 'home' },
+    children: [
+      {
+        path: "/",
+        name: "home",
+        meta: {
+          title: 'Home',
+        },
+        component: importPage('Home')
+      },
+    ]
   },
   {
-    path: '/profile/:username',
-    name: 'username-profile',
-    component: () => lazyLoadView(import('@views/profile.vue')),
-    meta: {
-      authRequired: true,
-      // HACK: In order to share data between the `beforeResolve` hook
-      // and the `props` function, we must create an object for temporary
-      // data only used during route resolution.
-      tmp: {},
-      beforeResolve(routeTo, routeFrom, next) {
-        store
-          // Try to fetch the user's information by their username
-          .dispatch('users/fetchUser', { username: routeTo.params.username })
-          .then((user) => {
-            // Add the user to `meta.tmp`, so that it can
-            // be provided as a prop.
-            routeTo.meta.tmp.user = user
-            // Continue to the route.
-            next()
-          })
-          .catch(() => {
-            // If a user with the provided username could not be
-            // found, redirect to the 404 page.
-            next({ name: '404', params: { resource: 'User' } })
-          })
-      },
+    path: '/auth',
+    name: 'auth',
+    components: {
+      layout: authLayout
     },
-    // Set the user from the route params, once it's set in the
-    // beforeResolve route guard.
-    props: (route) => ({ user: route.meta.tmp.user }),
-  },
-  {
-    path: '/logout',
-    name: 'logout',
-    meta: {
-      authRequired: true,
-      beforeResolve(routeTo, routeFrom, next) {
-        store.dispatch('auth/logOut')
-        const authRequiredOnPreviousRoute = routeFrom.matched.some(
-          (route) => route.meta.authRequired
-        )
-        // Navigate back to previous page, or home as a fallback
-        next(authRequiredOnPreviousRoute ? { name: 'home' } : { ...routeFrom })
+    redirect: { name: 'login' },
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: () => lazyLoadView(import('@views/auth/login.vue')),
+        meta: {
+          beforeResolve(routeTo, routeFrom, next) {
+            // If the user is already logged in
+            if (store.getters['auth/loggedIn']) {
+              // Redirect to the home page instead
+              next({ name: 'home' })
+            } else {
+              // Continue to the login page
+              next()
+            }
+          },
+        },
       },
-    },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => lazyLoadView(import('@views/auth/register.vue')),
+        meta: {
+          beforeResolve(routeTo, routeFrom, next) {
+            // If the user is already logged in
+            if (store.getters['auth/loggedIn']) {
+              // Redirect to the home page instead
+              next({ name: 'home' })
+            } else {
+              // Continue to the login page
+              next()
+            }
+          },
+        },
+      },
+      {
+        path: 're-password',
+        name: 're-password',
+        component: () => lazyLoadView(import('@views/auth/re-password.vue')),
+        meta: {
+          beforeResolve(routeTo, routeFrom, next) {
+            // If the user is already logged in
+            if (store.getters['auth/loggedIn']) {
+              // Redirect to the home page instead
+              next({ name: 'home' })
+            } else {
+              // Continue to the login page
+              next()
+            }
+          },
+        },
+      },
+      {
+        path: '/logout',
+        name: 'logout',
+        meta: {
+          authRequired: true,
+          beforeResolve(routeTo, routeFrom, next) {
+            store.dispatch('auth/logOut')
+            const authRequiredOnPreviousRoute = routeFrom.matched.some(
+              (route) => route.meta.authRequired
+            )
+            // Navigate back to previous page, or home as a fallback
+            next(authRequiredOnPreviousRoute ? { name: 'login' } : { ...routeFrom })
+          },
+        },
+      },
+    ]
   },
   {
     path: '/404',
@@ -110,7 +134,7 @@ export default [
 //
 // component: () => import('@views/my-view')
 //
-function lazyLoadView(AsyncView) {
+const lazyLoadView = AsyncView => {
   const AsyncHandler = () => ({
     component: AsyncView,
     // A component to use while the component is loading.
@@ -135,3 +159,5 @@ function lazyLoadView(AsyncView) {
     },
   })
 }
+
+export default routeList

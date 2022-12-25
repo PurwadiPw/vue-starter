@@ -1,0 +1,171 @@
+@import "@themes/generated/variables.base";
+
+.content {
+  line-height: 1.5;
+
+  h2 {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.content-block {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+
+  .screen-x-small & {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.responsive-paddings {
+  padding: 20px;
+
+  .screen-large & {
+    padding: 40px;
+  }
+}
+
+/* devextreme --------------------------------------------------------------- */
+.dx-card.wide-card {
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-right: 0;
+  border-left: 0;
+}
+.with-footer > .dx-scrollable-wrapper >
+.dx-scrollable-container > .dx-scrollable-content {
+  height: 100%;
+
+  & > .dx-scrollview-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+}
+.dx-theme-generic .dx-toolbar {
+  padding: 0;
+}
+.dx-toolbar .dx-toolbar-items-container {
+  height: 46px;
+}
+.dx-treeview-node-container > .dx-treeview-node-is-leaf {
+  padding: 0;
+  // background-color: red;
+}
+.dx-datagrid-content .dx-datagrid-table .dx-row .dx-command-select {
+  width: 30px;
+  min-width: 30px;
+}
+.dx-pager {
+  padding: 0 !important;
+}
+.dx-pager .dx-pages .dx-page,
+.dx-pager .dx-page-sizes .dx-page-size {
+  padding: 4px;
+  min-width: 24px;
+  text-align: center;
+}
+.dx-pager .dx-pages .dx-prev-button, .dx-pager .dx-pages .dx-next-button {
+  font-size: 14px;
+  line-height: 22px;
+}
+.dx-page-sizes,
+.dx-pager .dx-pages .dx-info {
+  float: right !important;
+}
+.dx-pages {
+  float: left !important;
+  @apply flex flex-row-reverse items-center;
+}
+.dx-datagrid-content .dx-datagrid-table .dx-row > td,
+.dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
+  vertical-align: middle !important;
+}
+.dx-datagrid-headers .dx-texteditor-input,
+.dx-datagrid-rowsview .dx-texteditor-input {
+  min-height: 22px;
+  height: 22px;
+  font-size: 11px;
+}
+.dx-datagrid.dx-filter-menu .dx-menu-item-content .dx-icon {
+  font-size: 12px;
+  line-height: 12px;
+}
+.dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-texteditor-input {
+  padding-left: 25px !important;
+}
+.dx-button.row-action .dx-button-content {
+  padding: 0 !important;
+}
+.dx-context-menu .dx-submenu {
+  @apply rounded shadow-lg;
+}
+.dx-tabpanel {
+  > .dx-tabpanel-container {
+    > .dx-multiview-wrapper {
+      background: #f5f5f5;
+    }
+  }
+}
+.form-toolbar {
+  .dx-toolbar {
+    @apply bg-transparent;
+    .dx-toolbar-items-container {
+      height: 27px !important;
+    }
+  }
+  .dx-button {
+    .dx-button-content {
+      height: 25px !important;
+    }
+    .dx-button-text {
+      @apply uppercase;
+    }
+  }
+  .dx-texteditor {
+    &.dx-editor-outlined {
+      border: 1px solid #a2b4b8;
+    }
+  }
+}
+
+/* router tab --------------------------------------------------------------- */
+.router-tab-page {
+  margin: 0.7rem 0.7rem 2rem 0.7rem;
+}
+
+.router-tab__header,
+.router-tab__item {
+  border-color: $base-border-color;
+}
+
+.router-tab__container>.router-alive {
+  height: calc(100vh - 106px);
+}
+
+.router-tab__container {
+  background: transparent;
+}
+
+.router-tab__item.is-active,
+.router-tab__item:hover {
+  color: $base-accent;
+}
+
+.router-tab__item {
+  font-size: .7rem #{!important};
+  // text-transform: uppercase;
+
+  &.is-active {
+    border-bottom-color: $base-accent;
+  }
+
+  .router-tab__item-title {
+    @apply uppercase;
+  }
+}

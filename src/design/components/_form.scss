@@ -1,0 +1,9 @@
+.form-input {
+  @apply w-full py-2 px-3 border border-inherit rounded h-10 outline-none bg-transparent;
+  &:focus {
+    @apply border-orange-300 shadow-none;
+  }
+  &.is-invalid {
+    @apply border-red-500;
+  }
+}

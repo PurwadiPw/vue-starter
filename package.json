@@ -1,51 +1,65 @@
 {
   "name": "frontend",
-	"description": "Opinionated boilerplate project for an enterprise Vue frontend",
+  "description": "Opinionated boilerplate project for an enterprise Vue frontend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
-    "docker": "docker-compose exec dev yarn"
+    "build-themes": "devextreme build"
   },
   "dependencies": {
+    "@casl/ability": "4.1.6",
+    "@casl/vue": "1.1.1",
     "@fortawesome/fontawesome-svg-core": "1.2.27",
     "@fortawesome/free-solid-svg-icons": "5.12.1",
     "@fortawesome/vue-fontawesome": "0.1.9",
     "axios": "0.19.2",
     "core-js": "^3.6.5",
     "date-fns": "2.10.0",
+    "devextreme": "^22.1.5",
+    "devextreme-aspnet-data-nojquery": "^2.8.4",
+    "devextreme-vue": "^22.1.5",
+    "floating-vue": "^1.0.0-beta.19",
     "lodash": "4.17.15",
+    "moment": "^2.29.4",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
-    "sass": "^1.24.2",
-    "sass-loader": "^8.0.0",
-    "uninstall": "0.0.0",
-    "vue": "^2.6.11",
+    "perfect-scrollbar": "^1.5.5",
+    "v-jsoneditor": "^1.4.5",
+    "vee-validate": "^3.4.5",
+    "vue": "^2.6.12",
+    "vue-events": "^3.1.0",
+    "vue-feather-icons": "^5.1.0",
     "vue-meta": "^2.4.0",
+    "vue-object-merge": "^1.0.0",
     "vue-router": "^3.3.4",
+    "vue-router-tab": "^1.2.11",
+    "vue-sweetalert2": "^5.0.5",
+    "vue-toastification": "^1.7.14",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0-rc.1",
-    "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
-    "@vue/cli-service": "~5.0.0-rc.1",
-    "autoprefixer": "^10.4.12",
-    "babel-eslint": "10.1.x",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "autoprefixer": "10.4.5",
+    "babel-eslint": "^10.1.0",
     "cross-env": "7.0.x",
-    "eslint": "^5.16.0",
+    "devextreme-cli": "^1.2.24",
+    "devextreme-themebuilder": "^22.1.5",
+    "eslint": "^7.32.0",
     "eslint-plugin-vue": "^5.0.0",
     "postcss": "^8.4.17",
+    "sass": "^1.32.11",
+    "sass-loader": "^10.1.0",
     "tailwindcss": "^3.1.8",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions"
-  ],
-  "engines": {
-    "node": ">=10.13.3",
-    "yarn": ">=1.0.0"
-  }
+    "last 2 versions",
+    "not dead"
+  ]
 }

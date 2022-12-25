@@ -1,0 +1,19 @@
+// style.scss
+@import '~sweetalert2/src/variables';
+@import '~sweetalert2/src/sweetalert2';
+
+body {
+  &.swal2-height-auto {
+    height: 100% !important;
+  }
+}
+.swal2-popup {
+  font-family: 'Open Sans', sans-serif;
+}
+.swal2-styled{
+  &.swal2-confirm,
+  &.swal2-deny,
+  &.swal2-cancel {
+    @apply text-xs py-[0.5em] uppercase;
+  }
+}

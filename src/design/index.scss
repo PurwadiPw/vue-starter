@@ -1,6 +1,11 @@
+// tailwindcss
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import 'devextreme/dist/css/dx.common.css';
+@import '@themes/generated/theme.base.css';
+@import '@themes/generated/theme.additional.css';
 
 // FONTS
 @import "custom/fonts";
@@ -8,24 +13,21 @@
 // general
 @import "custom/general";
 
+// colors
+@import "custom/colors";
+
+// devextreme
+@import "custom/devextreme";
+
 // components
 @import "components/buttons";
-@import "components/breadcrumb";
+@import "components/form";
 
 // structure
 @import "custom/structure/topnav";
 @import "custom/structure/footer";
 
-// pages
-@import "custom/pages/helper";
-@import "custom/pages/hero";
-@import "custom/pages/countdown";
-@import "custom/pages/portfolio";
-@import "custom/pages/timeline";
-@import "custom/pages/contact";
-
-// Plugins
-@import "custom/plugins/swiper-slider";
-@import "custom/plugins/testi";
-@import "custom/plugins/choices";
-@import "custom/plugins/datepicker";
+// plugins
+@import "custom/plugins/toastification";
+@import "custom/plugins/perfect-scrollbar";
+@import "custom/plugins/sweet-alerts";

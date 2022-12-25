@@ -1,0 +1,100 @@
+<template>
+  <div class="user-panel">
+    <div class="user-info">
+      <div class="image-container">
+        <div class="user-image" />
+      </div>
+      <div class="user-name">{{user.name}}</div>
+    </div>
+
+    <dx-context-menu v-if="menuMode === 'context'" :items="menuItems" target=".user-button" show-event="dxclick" css-class="user-menu">
+      <dx-position my="right top" at="right bottom" />
+    </dx-context-menu>
+
+    <dx-list v-if="menuMode === 'list'" :items="menuItems" class="dx-toolbar-menu-action" />
+  </div>
+</template>
+
+<script>
+import DxList from "devextreme-vue/list";
+
+export default {
+  props: {
+    menuMode: String,
+    menuItems: Array,
+    user: Object
+  },
+  components: {
+    DxList
+  }
+};
+</script>
+
+<style lang="scss">
+@import "@themes/generated/variables.base.scss";
+
+.user-info {
+  display: flex;
+  align-items: center;
+
+  .dx-toolbar-menu-section & {
+    padding: 10px 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .image-container {
+    overflow: hidden;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin: 0 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+
+    .user-image {
+      width: 100%;
+      height: 100%;
+      background: url("~@assets/images/avatars/no-photo-male.jpeg") no-repeat #fff;
+      background-size: cover;
+    }
+  }
+
+  .user-name {
+    font-size: 14px;
+    color: $base-text-color;
+    margin: 0 9px;
+  }
+}
+
+.user-panel {
+  .dx-list-item .dx-icon {
+    vertical-align: middle;
+    color: $base-text-color;
+    margin-right: 16px;
+  }
+  .dx-rtl .dx-list-item .dx-icon {
+    margin-right: 0;
+    margin-left: 16px;
+  }
+}
+
+.dx-context-menu.user-menu.dx-menu-base {
+  &.dx-rtl {
+    .dx-submenu .dx-menu-items-container .dx-icon {
+      margin-left: 5px;
+    }
+  }
+  .dx-submenu .dx-menu-items-container .dx-icon {
+    margin-right: 5px;
+  }
+  .dx-menu-item .dx-menu-item-content {
+    padding: 3px 10px;
+  }
+}
+
+.dx-theme-generic .user-menu .dx-menu-item-content .dx-menu-item-text {
+  padding-left: 4px;
+  padding-right: 4px;
+  text-transform: uppercase;
+}
+</style>

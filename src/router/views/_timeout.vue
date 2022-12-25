@@ -1,3 +1,12 @@
+<template>
+  <Layout v-if="offlineConfirmed">
+    <h1 :class="$style.title">
+      The page timed out while loading. Are you sure you're still connected to the Internet?
+    </h1>
+  </Layout>
+  <LoadingView v-else />
+</template>
+
 <script>
 import axios from 'axios'
 import Layout from '@layouts/main.vue'
@@ -28,16 +37,6 @@ export default {
   },
 }
 </script>
-
-<template>
-  <Layout v-if="offlineConfirmed">
-    <h1 :class="$style.title">
-      The page timed out while loading. Are you sure you're still connected to
-      the Internet?
-    </h1>
-  </Layout>
-  <LoadingView v-else />
-</template>
 
 <style lang="scss" module>
 .title {

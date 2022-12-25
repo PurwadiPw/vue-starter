@@ -11,6 +11,57 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     @apply leading-normal;
 }
 
+hr {
+  @apply my-2 border-t border-[#dedede];
+}
+
 ::selection {
     @apply bg-indigo-600/90 text-white;
+}
+
+.container {
+  @apply relative;
+}
+
+.grid-toolbar {
+  > div {
+      margin-right: 4px;
+  }
+
+  .input-group-sm {
+      > .form-control:not(textarea) {
+          height: 2rem;
+          padding-bottom: .4rem;
+      }
+  }
+
+  button {
+      font-size: .7rem #{!important};
+  }
+
+  .dropdown-toggle {
+      &.btn-sm {
+          padding-bottom: .53rem !important;
+
+          &:after {
+              vertical-align: bottom !important;
+          }
+      }
+  }
+}
+
+.badge {
+  @apply text-center rounded-full px-2 py-0.5 text-[0.55rem];
+  &.success {
+    @apply bg-green-500;
+  }
+  &.warning {
+    @apply bg-orange-500;
+  }
+  &.danger {
+    @apply bg-red-500;
+  }
+  &.primary {
+    @apply bg-[#3cbab2];
+  }
 }

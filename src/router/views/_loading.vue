@@ -1,19 +1,19 @@
-<script>
-import Layout from '@layouts/main.vue'
+<template>
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+</template>
 
+<script>
 export default {
   page: {
-    title: 'Loading page...',
-    meta: [{ name: 'description', content: 'Loading page...' }],
+    title: 'Loading...',
+    meta: [{ name: 'description', content: 'Loading...' }],
   },
-  components: { Layout },
 }
 </script>
-
-<template>
-  <Layout>
-    <Transition appear>
-      <BaseIcon :class="$style.loadingIcon" name="sync" spin />
-    </Transition>
-  </Layout>
-</template>

@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 // Adds a loading bar at the top during page loads.
 import NProgress from 'nprogress/nprogress'
+import cloneDeep from 'lodash/cloneDeep'
+import notify from 'devextreme/ui/notify'
 import store from '@state/store'
 import routes from './routes'
 
@@ -11,6 +13,17 @@ Vue.use(VueRouter)
 Vue.use(VueMeta, {
   // The component option name that vue-meta looks for meta info on.
   keyName: 'page',
+})
+
+// lazy load
+const positions = 'bottom center'
+const direction = 'up-push'
+const importPage = view => () => import(/* webpackChunkName: "p-[request]" */ `@views/${view}.vue`).catch((err) => {
+  notify({
+    message: err.message,
+    type: 'error',
+    width: 'auto',
+  }, { positions, direction })
 })
 
 const router = new VueRouter({
@@ -49,11 +62,15 @@ router.beforeEach((routeTo, routeFrom, next) => {
   // If auth is required and the user is logged in...
   if (store.getters['auth/loggedIn']) {
     // Validate the local user token...
-    return store.dispatch('auth/validate').then((validUser) => {
-      // Then continue if the token still represents a valid user,
-      // otherwise redirect to login.
-      validUser ? next() : redirectToLogin()
-    })
+    if (routeFrom.name !== null) {
+      return next()
+    } else {
+      return store.dispatch('auth/validateUser').then((validUser) => {
+        // Then continue if the token still represents a valid user,
+        // otherwise redirect to login.
+        validUser ? next() : redirectToLogin()
+      })
+    }
   }
 
   // If auth is required and the user is NOT currently logged in,
@@ -62,7 +79,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
   function redirectToLogin() {
     // Pass the original route to the login component
-    next({ name: 'login', query: { redirectFrom: routeTo.fullPath } })
+    router.push({ name: 'login', query: { redirectFrom: routeTo.fullPath } }).catch(() => {})
   }
 })
 
@@ -114,6 +131,50 @@ router.beforeResolve(async (routeTo, routeFrom, next) => {
 router.afterEach((routeTo, routeFrom) => {
   // Complete the animation of the route progress bar.
   NProgress.done()
+})
+
+// dynamic route
+const flattenArr = arr => {
+  const result = []
+  const attTmp = cloneDeep(arr)
+
+  attTmp.forEach(item => {
+    const { path, component, items } = item
+
+    if (item.route !== undefined && item.route !== null && item.file_component !== undefined && item.route !== 'home') {
+      let route = item.route
+      if(route && !(/^\//.test(route))) route = `/${route}`
+
+      result.push({
+        path: route,
+        name: item.route,
+        meta: {
+          title: item.text,
+          pageTitle: item.text,
+          authRequired: true,
+        },
+        component: importPage(item.file_component),
+      })
+    }
+    if (items) result.push(...flattenArr(items))
+  })
+  return result
+}
+
+const updateRoute = () => {
+  let { routes: route } = router.options;
+  let routeData = route.find(r => r.name === 'index');
+
+  routeData.children = flattenArr(store.getters['app/appMenu'])
+  router.addRoute(routeData)
+}
+
+updateRoute()
+
+store.watch(() => store.getters['auth/isLoadingValidateUser'], status => {
+  if (status === false) {
+    updateRoute()
+  }
 })
 
 export default router
